@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Dojos and Ninjas</title>
+</head>
+<body>
+    <div class="container">
+        <div style="display: inline-block; margin: 20px; text-align: center;">
+            <h1>Add a Dojo</h1>
+            <form action="/add" method="POST">
+                <input type="hidden" name="add" value="add_dojo">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Name</label>
+                  <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">              
+                </div>
+                <div class="form-group">
+                    <label for="inputCity">City</label>
+                    <input type="text" name="city" class="form-control" id="inputCity">
+                  </div>
+                  <div class="form-group">
+                    <label for="inputCity">State</label>
+                    <input type="text" name="state" class="form-control" id="inputCity">
+                  </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+              </form>
+        </div>
+        <div style="display: inline-block; vertical-align: top; margin: 20px; text-align: center;">
+            <h1>Add a Ninja</h1>
+            <form action="/add" method="POST">
+                <input type="hidden" name="add" value="add_ninja">
+              <div class="form-group">
+                <label for="exampleInputEmail1">First Name</label>
+                <input type="text" name="first_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">              
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Last Name</label>
+                <input type="text" name='last_name' class="form-control" id="exampleInputPassword1">
+              </div>
+              <div class="form-group">
+                <label for="dojo">Dojo</label>
+                  <select class="form-control" name="dojo">
+                      {% for dojo in dojos %}                       
+                        <option value="{{dojo.id}}">{{dojo.name}}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+          </div>
+        <div style="outline: 1px solid black;"></div>
+        <div>
+            <h1>All the Dojos & Their Ninjas</h1>
+            <ul style="list-style: none;">
+                {% for dojo in dojos %} 
+                <li>
+                    <h4>{{"Ninjas at the {} Dojo".format(dojo.name)}}</h4>
+                    <ul>
+                        {% for ninja in dojo.dojos_ninjas %} 
+                            <li>
+                                <span>{{ninja.name()}}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
